@@ -20,13 +20,16 @@ public class Render {
 		this.color = color;
 	}
 	
-	public void draw(Graphics2D g, int cameraX, int cameraY, double zoom) {
+	public void draw(Graphics2D g, int centerX, int centerY, int cameraX, int cameraY, double zoom) {
 		g.setColor(color);
+		
+		System.out.println(x + " : " + centerX + " : " + cameraX);
+		
 		g.fillOval(
-				x + cameraX, 
-				y + cameraY, 
-				(int) (sizeX * zoom), 
+				(int) ((x + centerX + cameraX) * zoom) - (int) (sizeX * zoom / 2),
+				(int) ((y + centerY + cameraY) * zoom) - (int) (sizeY * zoom / 2),
+				(int) (sizeX * zoom),
 				(int) (sizeY * zoom)
-		);
+			);
 	}
 }

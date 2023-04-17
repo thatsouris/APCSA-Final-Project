@@ -54,10 +54,22 @@ public class Display extends JPanel {
 		graphics.setColor(BG_COLOR);
 		graphics.fillRect(0, 0, super.getWidth(), super.getHeight());
 		
+		graphics.setColor(new Color(255, 255, 255));
+
+		int centerX = super.getWidth() / 2;
+		int centerY = super.getHeight() / 2;
+		graphics.drawRect(centerX, centerY, 1, 1);
+		
 		// Drawing components
 		if (renders != null) {
 			for (Render render : renders) {
-				render.draw(graphics, cameraX, cameraY, zoom);
+				render.draw(graphics,
+						centerX,
+						centerY,
+						cameraX, 
+						cameraY, 
+						zoom
+				);
 			}
 		}
 		
@@ -104,7 +116,7 @@ public class Display extends JPanel {
         this.repaint();
         
         Render[] r = new Render[2];
-        r[0] = new Render(200, 100, 50, 50, new Color(255, 255, 255));
+        r[0] = new Render(0, 0, 50, 50, new Color(255, 255, 255));
         r[1] = new Render(300, 500, 50, 50, new Color(255, 255, 255));
         this.updateRenders(r);
 	}
@@ -128,14 +140,15 @@ public class Display extends JPanel {
             cameraDY = cameraPlot.y - e.getY();
             
             cameraPlot = e.getPoint();
-            cameraX += cameraDX;
-            cameraY += cameraDY;
+            cameraX -= cameraDX;
+            cameraY -= cameraDY;
+           
             repaint();
         }
         
         @Override
         public void mouseWheelMoved(MouseWheelEvent e) {
-        	zoom += (double) e.getWheelRotation() * 0.1d;
+        	zoom += (double) e.getWheelRotation() * -0.1d;
         	zoom = Math.round(zoom * 10) / 10d;
         	
         	zoom = Math.max(Math.min(zoom, ZOOM_MAX), ZOOM_MIN);
