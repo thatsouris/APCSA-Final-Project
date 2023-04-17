@@ -1,13 +1,35 @@
 package main;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Date;
+
+import javax.swing.Timer;
+
 import display.Display;
 
 public class Main {
 	public static void main(String[] args) {
 		Display display = new Display("APCSA | PHYSICS PROJECT", 600, 600);
 		
-		PhysicsObject object1 = new PhysicsObject(50, 5, 1, 1);
-		PhysicsObject object2 = new PhysicsObject(50, 5* Math.pow(10, 24), 3, 5);
-		System.out.println(object1.calculateForce());
+		new PhysicsObject(5 * Math.pow(10, 3), Math.pow(10, 8), 0, 0);
+		new PhysicsObject(5 * Math.pow(10, 3), Math.pow(10, 8), 0, Math.pow(10, 4));
+		
+		
+		ActionListener render = new ActionListener() {
+			long lastTime = new Date().getTime();
+			double dt = 0d;
+			long thisTime = lastTime;
+			
+			public void actionPerformed(ActionEvent e) {
+				thisTime = new Date().getTime();
+				dt = (thisTime - lastTime) / 1000d;
+				lastTime = thisTime;
+				
+				PhysicsObject.simulateObjects(dt);
+				display.updateRenders(PhysicsObject.getRenders());
+			}
+		};
+		new Timer((int) (1000d / (double) display.getFPS()), render).start();
 	}
 }

@@ -24,7 +24,7 @@ public class Display extends JPanel {
 	private static double ZOOM_MIN = 0.5;
 	private static double ZOOM_MAX = 5.0;
 	
-	public int FPS = 0;
+	public int FPS = 60;
 	
 	private int cameraX;
 	private int cameraY;
@@ -115,9 +115,7 @@ public class Display extends JPanel {
         
         this.repaint();
         
-        Render[] r = new Render[2];
-        r[0] = new Render(0, 0, 50, 50, new Color(255, 255, 255));
-        r[1] = new Render(300, 500, 50, 50, new Color(255, 255, 255));
+        Render[] r = new Render[0];
         this.updateRenders(r);
 	}
 	

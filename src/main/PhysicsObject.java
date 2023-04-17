@@ -77,8 +77,24 @@ public class PhysicsObject {
 		);
 	}
 	
+	public static Render[] getRenders() {
+		Render[] renders = new Render[objects.size()];
+		
+		for (int i = 0; i < objects.size(); i++) {
+			renders[i] = objects.get(i).castToRender();
+		}
+		
+		return renders;
+	}
+	
 	public Render castToRender() {
-		return new Render(0, 0, 0, 0, new Color(255, 255, 255));
+		return new Render(
+				(int) (x / 100), 
+				(int) (y / 100), 
+				(int) (radius * 2 / 100), 
+				(int) (radius * 2 / 100), 
+				new Color(255, 255, 255)
+			);
 	}
 	
 	// Simulation Methods
@@ -89,7 +105,6 @@ public class PhysicsObject {
 		
 		for (PhysicsObject other : objects) {
 			if (other.equals(this)) continue;
-			System.out.println(other);
 			double distance = getDistance(other);
 			
 			double angle = Math.atan(
@@ -97,13 +112,31 @@ public class PhysicsObject {
 					this.x - other.getX()
 			);
 			
-			long force = (long) ((GRAVITY_CONSTANT * (long) this.mass * (long) other.getMass()) / Math.pow(distance, 2));
-			System.out.println(GRAVITY_CONSTANT + " " + (long) this.mass + " " + (long) other.getMass());
+			double force = (long) ((6.67d * this.mass * other.getMass()) / (Math.pow(distance, 2) * Math.pow(10, 11)));
 			resultant.add(new Force(force, angle));
 		}
 		
 		return resultant;
 	}
 	
+	public static void simulateObjects(double dt) {
+		for (PhysicsObject object : objects) {
+			object.simulateStep(dt);
+		}
+	}
 	
+	public void simulateStep(double dt) {
+		System.out.println("Deltatime : " + dt);
+		Force nextForce = calculateForce();
+		
+		this.acelX = nextForce.getAcelX(mass);
+		this.acelY = nextForce.getAcelY(mass);
+		
+		this.velX += acelX * dt;
+		this.velY += acelY * dt;
+		
+		this.x += velX * dt;
+		this.y += velY * dt; // Possible error
+		System.out.println(x);
+	}
 }
