@@ -12,8 +12,8 @@ public class Main {
 	public static void main(String[] args) {
 		Display display = new Display("APCSA | PHYSICS PROJECT", 600, 600);
 		
-		new PhysicsObject(5 * Math.pow(10, 3), Math.pow(10, 8), 0, 0);
-		new PhysicsObject(5 * Math.pow(10, 3), Math.pow(10, 8), 0, Math.pow(10, 4));
+		new PhysicsObject(5 * Math.pow(10, 2), Math.pow(10, 15), 0, 5000, 500, 500d, 5d, 5d);
+		new PhysicsObject(5 * Math.pow(10, 3), Math.pow(10, 20), 0, 5.5* Math.pow(10, 4));
 		
 		
 		ActionListener render = new ActionListener() {

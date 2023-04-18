@@ -12,9 +12,9 @@ public class Render {
 	private Color color;
 	
 	public Render(int x, int y, int sizeX, int sizeY, Color color) {
-		System.out.println(x);
+		System.out.println(x + y);
 		this.x = x;
-		this.x = y;
+		this.y = y;
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
 		
@@ -23,7 +23,8 @@ public class Render {
 	
 	public void draw(Graphics2D g, int centerX, int centerY, int cameraX, int cameraY, double zoom) {
 		g.setColor(color);
-		
+		System.out.println("render x : "+ x);
+		System.out.println("render y : " + y);
 		g.fillOval(
 				(int) ((x + centerX + cameraX) * zoom) - (int) (sizeX * zoom / 2),
 				(int) ((y + centerY + cameraY) * zoom) - (int) (sizeY * zoom / 2),

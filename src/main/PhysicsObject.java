@@ -88,11 +88,13 @@ public class PhysicsObject {
 	}
 	
 	public Render castToRender() {
+		System.out.println("Yo : " + (int)(y / 100d));
+		
 		return new Render(
-				(int) (x / 100), 
-				(int) (y / 100), 
-				(int) (radius * 2 / 100), 
-				(int) (radius * 2 / 100), 
+				(int) (x / 100d), 
+				(int) (y / 100d), 
+				(int) (radius * 2 / 100d), 
+				(int) (radius * 2 / 100d), 
 				new Color(255, 255, 255)
 			);
 	}
@@ -108,11 +110,12 @@ public class PhysicsObject {
 			double distance = getDistance(other);
 			
 			double angle = Math.atan(
-					this.y - other.getY() / 
-					this.x - other.getX()
+					(this.y - other.getY()) / 
+					(this.x - other.getX())
 			);
 			
 			double force = (long) ((6.67d * this.mass * other.getMass()) / (Math.pow(distance, 2) * Math.pow(10, 11)));
+			System.out.println("Force : " + this + " " + force);
 			resultant.add(new Force(force, angle));
 		}
 		
@@ -131,12 +134,15 @@ public class PhysicsObject {
 		
 		this.acelX = nextForce.getAcelX(mass);
 		this.acelY = nextForce.getAcelY(mass);
-		
+		System.out.println(acelX);
 		this.velX += acelX * dt;
 		this.velY += acelY * dt;
 		
 		this.x += velX * dt;
 		this.y += velY * dt; // Possible error
-		System.out.println(x);
+		System.out.println("velx : " + velX);
+		System.out.println("acelx : " + acelX);
+		System.out.println("x : " + x);
+		System.out.println("y : " + y);
 	}
 }
