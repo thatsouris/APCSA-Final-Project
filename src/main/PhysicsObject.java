@@ -88,8 +88,6 @@ public class PhysicsObject {
 	}
 	
 	public Render castToRender() {
-		System.out.println("Yo : " + (int)(y / 100d));
-		
 		return new Render(
 				(int) (x / 100d), 
 				(int) (y / 100d), 
@@ -109,14 +107,12 @@ public class PhysicsObject {
 			if (other.equals(this)) continue;
 			double distance = getDistance(other);
 			
-			double angle = Math.atan(
-					(this.y - other.getY()) / 
-					(this.x - other.getX())
-			);
-			
+			double ratioX = (double) -x / distance;
+			double ratioY = (double) -y / distance;
+
 			double force = (long) ((6.67d * this.mass * other.getMass()) / (Math.pow(distance, 2) * Math.pow(10, 11)));
 			System.out.println("Force : " + this + " " + force);
-			resultant.add(new Force(force, angle));
+			resultant.add(new Force(ratioX * force, ratioY * force));
 		}
 		
 		return resultant;
@@ -138,8 +134,8 @@ public class PhysicsObject {
 		this.velX += acelX * dt;
 		this.velY += acelY * dt;
 		
-		this.x += velX * dt;
-		this.y += velY * dt; // Possible error
+		this.x += velX ;
+		this.y += velY; // Possible error
 		System.out.println("velx : " + velX);
 		System.out.println("acelx : " + acelX);
 		System.out.println("x : " + x);

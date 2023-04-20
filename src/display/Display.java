@@ -24,7 +24,7 @@ public class Display extends JPanel {
 	private static double ZOOM_MIN = 0.5;
 	private static double ZOOM_MAX = 5.0;
 	
-	public int FPS = 30;
+	public int FPS = 60;
 	
 	private int cameraX;
 	private int cameraY;
