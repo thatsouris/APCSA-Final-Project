@@ -11,8 +11,27 @@ public class Render {
 	private int sizeY;
 	private Color color;
 	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public int getSizeX() {
+		return sizeX;
+	}
+	
+	public int getSizeY() {
+		return sizeY;
+	}
+	
+	public Color getColor() {
+		return color;
+	}
+	
 	public Render(int x, int y, int sizeX, int sizeY, Color color) {
-		System.out.println(x + y);
 		this.x = x;
 		this.y = y;
 		this.sizeX = sizeX;
@@ -23,8 +42,7 @@ public class Render {
 	
 	public void draw(Graphics2D g, int centerX, int centerY, int cameraX, int cameraY, double zoom) {
 		g.setColor(color);
-		System.out.println("render x : "+ x);
-		System.out.println("render y : " + y);
+
 		g.fillOval(
 				(int) ((x + centerX + cameraX) * zoom) - (int) (sizeX * zoom / 2),
 				(int) ((y + centerY + cameraY) * zoom) - (int) (sizeY * zoom / 2),

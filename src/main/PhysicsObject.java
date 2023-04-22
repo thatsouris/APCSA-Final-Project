@@ -111,7 +111,6 @@ public class PhysicsObject {
 			double ratioY = (double) -y / distance;
 
 			double force = (long) ((6.67d * this.mass * other.getMass()) / (Math.pow(distance, 2) * Math.pow(10, 11)));
-			System.out.println("Force : " + this + " " + force);
 			resultant.add(new Force(ratioX * force, ratioY * force));
 		}
 		
@@ -125,20 +124,15 @@ public class PhysicsObject {
 	}
 	
 	public void simulateStep(double dt) {
-		System.out.println("Deltatime : " + dt);
 		Force nextForce = calculateForce();
 		
 		this.acelX = nextForce.getAcelX(mass);
 		this.acelY = nextForce.getAcelY(mass);
-		System.out.println(acelX);
+		
 		this.velX += acelX * dt;
 		this.velY += acelY * dt;
 		
-		this.x += velX ;
-		this.y += velY; // Possible error
-		System.out.println("velx : " + velX);
-		System.out.println("acelx : " + acelX);
-		System.out.println("x : " + x);
-		System.out.println("y : " + y);
+		this.x += velX * dt;
+		this.y += velY * dt; // Possible error
 	}
 }

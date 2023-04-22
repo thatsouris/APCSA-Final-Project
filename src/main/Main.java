@@ -15,7 +15,7 @@ public class Main {
 		new PhysicsObject(5 * Math.pow(10, 2), Math.pow(10, 15), Math.pow(10, 3), 0, 8000, 0);
 		new PhysicsObject(5 * Math.pow(10, 2), Math.pow(10, 15), 0, -7500, 5000, 0);
 		new PhysicsObject(5 * Math.pow(10, 2), Math.pow(10, 15), 0, -5000, 5000, 0);
-		new PhysicsObject(5.5 * Math.pow(10, 2), Math.pow(10, 25), 0, 0);
+		new PhysicsObject(8 * Math.pow(10, 2), Math.pow(10, 25), 0, 0);
 
 		
 		ActionListener render = new ActionListener() {

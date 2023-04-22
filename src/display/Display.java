@@ -24,7 +24,9 @@ public class Display extends JPanel {
 	private static double ZOOM_MIN = 0.5;
 	private static double ZOOM_MAX = 5.0;
 	
-	public int FPS = 60;
+	private static int GRID_LINES_PER_DISTANCE = 25;
+	
+	public int FPS = 144;
 	
 	private int cameraX;
 	private int cameraY;
@@ -41,6 +43,34 @@ public class Display extends JPanel {
 	}
 	public int getFPS() {
 		return FPS;
+	}
+	
+	public void drawGrid(Graphics2D g) {
+		int centerX = super.getWidth() / 2;
+		int centerY = super.getHeight() / 2;
+		
+		int amountX = (int) (super.getWidth() * zoom) / GRID_LINES_PER_DISTANCE;
+		int amountY = (int)(super.getHeight() * zoom) / GRID_LINES_PER_DISTANCE;
+		
+		for (int x = -amountX / 2 - 3; x < amountX / 2 + 3; x++) {
+			GridLine line = new GridLine(
+					cameraX + (x * GRID_LINES_PER_DISTANCE),
+					cameraY,
+					cameraX + (x * GRID_LINES_PER_DISTANCE),
+					super.getHeight() + cameraY
+				);
+			line.draw(g, centerX, centerY, cameraX, cameraY, zoom);
+		}
+		
+		for (int y = -3; y < amountY + 3; y++) {
+			GridLine line = new GridLine(
+					cameraX,
+					cameraY + (y * GRID_LINES_PER_DISTANCE),
+					cameraX + super.getWidth(),
+					cameraY + (y * GRID_LINES_PER_DISTANCE)
+				);
+			line.draw(g, centerX, centerY, cameraX, cameraY, zoom);
+		}
 	}
 	
 	@Override
@@ -60,18 +90,20 @@ public class Display extends JPanel {
 		int centerY = super.getHeight() / 2;
 		graphics.drawRect(centerX, centerY, 1, 1);
 		
+		drawGrid(graphics);
+		
 		// Drawing components
-		if (renders != null) {
-			for (Render render : renders) {
-				render.draw(graphics,
-						centerX,
-						centerY,
-						cameraX, 
-						cameraY, 
-						zoom
-				);
-			}
-		}
+				if (renders != null) {
+					for (Render render : renders) {
+						render.draw(graphics,
+								centerX,
+								centerY,
+								cameraX, 
+								cameraY, 
+								zoom
+						);
+					}
+				}
 		
 		graphics.setColor(BORDER_COLOR);
 		graphics.drawRect(1, 1, super.getWidth() - 2, super.getHeight() - 2);
