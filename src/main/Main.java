@@ -12,10 +12,8 @@ public class Main {
 	public static void main(String[] args) {
 		Display display = new Display("APCSA | PHYSICS PROJECT", 600, 600);
 		
-		new PhysicsObject(5 * Math.pow(10, 2), Math.pow(10, 15), Math.pow(10, 3), 0, 8000, 0);
-		new PhysicsObject(5 * Math.pow(10, 2), Math.pow(10, 15), 0, -7500, 5000, 0);
-		new PhysicsObject(5 * Math.pow(10, 2), Math.pow(10, 15), 0, -5000, 5000, 0);
-		new PhysicsObject(8 * Math.pow(10, 2), Math.pow(10, 25), 0, 0);
+		new PhysicsObject(695000, 1.989 * Math.pow(10, 30), 0, 0);
+		new PhysicsObject(6371, 5.972 * Math.pow(10, 24), 0, 150000000, 46d, 0);
 
 		
 		ActionListener render = new ActionListener() {
@@ -28,7 +26,7 @@ public class Main {
 				dt = (thisTime - lastTime) / 1000d;
 				lastTime = thisTime;
 				
-				PhysicsObject.simulateObjects(dt);
+				PhysicsObject.simulateObjects(dt * 24 * 60 * 60);
 				display.updateRenders(PhysicsObject.getRenders());
 			}
 		};

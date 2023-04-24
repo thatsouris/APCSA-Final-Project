@@ -89,10 +89,10 @@ public class PhysicsObject {
 	
 	public Render castToRender() {
 		return new Render(
-				(int) (x / 100d), 
-				(int) (y / 100d), 
-				(int) (radius * 2 / 100d), 
-				(int) (radius * 2 / 100d), 
+				(int) (x / 1000000d), 
+				(int) (y / 1000000d), 
+				(int) Math.max(3, radius * 2 / 1000000d), 
+				(int) Math.max(3, radius * 2 / 1000000d), 
 				new Color(255, 255, 255)
 			);
 	}

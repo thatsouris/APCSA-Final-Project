@@ -14,9 +14,12 @@ public class GridLine extends Render{
 	public void draw(Graphics2D g, int centerX, int centerY, int cameraX, int cameraY, double zoom) {
 		g.setColor(super.getColor());
 		
+		cameraX /= 100;
+		cameraY /= 100;
+		
 		g.drawLine(
 				(int) ((super.getX() + cameraX) * zoom), 
-				(int) ((super.getY()+ cameraY) * zoom), 
+				(int) ((super.getY() + cameraY) * zoom), 
 				(int) ((super.getSizeX() + cameraX) * zoom), 
 				(int) ((super.getSizeY() + cameraY) * zoom));
 	}

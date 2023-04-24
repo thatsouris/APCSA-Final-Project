@@ -26,7 +26,7 @@ public class Display extends JPanel {
 	
 	private static int GRID_LINES_PER_DISTANCE = 25;
 	
-	public int FPS = 144;
+	public int FPS = 60;
 	
 	private int cameraX;
 	private int cameraY;
