@@ -49,5 +49,13 @@ public class Render {
 				(int) (sizeX * zoom),
 				(int) (sizeY * zoom)
 			);
+		
+		g.setColor(new Color(255, 255, 255));
+		g.drawOval(
+				(int) ((x + centerX + cameraX) * zoom) - (int) (sizeX * zoom / 2),
+				(int) ((y + centerY + cameraY) * zoom) - (int) (sizeY * zoom / 2),
+				(int) (sizeX * zoom),
+				(int) (sizeY * zoom)
+			);
 	}
 }

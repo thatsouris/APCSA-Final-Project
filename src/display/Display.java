@@ -50,7 +50,7 @@ public class Display extends JPanel {
 		int centerY = super.getHeight() / 2;
 		
 		int amountX = (int) (super.getWidth() * zoom) / GRID_LINES_PER_DISTANCE;
-		int amountY = (int)(super.getHeight() * zoom) / GRID_LINES_PER_DISTANCE;
+		int amountY = (int) (super.getHeight() * zoom) / GRID_LINES_PER_DISTANCE;
 		
 		for (int x = -amountX / 2 - 3; x < amountX / 2 + 3; x++) {
 			GridLine line = new GridLine(

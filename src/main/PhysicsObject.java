@@ -20,6 +20,8 @@ public class PhysicsObject {
 	private double radius;
 	private double mass;
 	
+	private Color color;
+	
 	public double getRadius() { return radius; }
 	public double getMass() { return mass; }
 	public double getX() { return x; }
@@ -31,7 +33,8 @@ public class PhysicsObject {
 	
 	// Constructors
 	
-	public PhysicsObject(double radius, double mass, double x, double y) {
+	public PhysicsObject(Color color, double radius, double mass, double x, double y) {
+		this.color = color;
 		this.radius = radius;
 		this.mass = mass;
 		this.x = x;
@@ -44,7 +47,8 @@ public class PhysicsObject {
 		objects.add(this);
 	}
 	
-	public PhysicsObject(double radius, double mass, double x, double y, double velX, double velY) {
+	public PhysicsObject(Color color, double radius, double mass, double x, double y, double velX, double velY) {
+		this.color = color;
 		this.radius = radius;
 		this.mass = mass;
 		this.x = x;
@@ -57,7 +61,8 @@ public class PhysicsObject {
 		objects.add(this);
 	}
 	
-	public PhysicsObject(double radius, double mass, double x, double y, double velX, double velY, double acelX, double acelY) {
+	public PhysicsObject(Color color, double radius, double mass, double x, double y, double velX, double velY, double acelX, double acelY) {
+		this.color = color;
 		this.radius = radius;
 		this.mass = mass;
 		this.x = x;
@@ -93,7 +98,7 @@ public class PhysicsObject {
 				(int) (y / 1000000d), 
 				(int) Math.max(3, radius * 2 / 1000000d), 
 				(int) Math.max(3, radius * 2 / 1000000d), 
-				new Color(255, 255, 255)
+				this.color
 			);
 	}
 	
