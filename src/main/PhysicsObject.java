@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.util.ArrayList;
 
 import display.Render;
@@ -9,6 +10,7 @@ import units.Force;
 public class PhysicsObject {
 	public static ArrayList<PhysicsObject> objects = new ArrayList<PhysicsObject>();
 	public static final long GRAVITY_CONSTANT = (long) ((long) 6.67 * (long) Math.pow(10, -11));
+	private static final int TRAIL_SIZE = 100;
 	
 	private double x;
 	private double y;
@@ -19,6 +21,8 @@ public class PhysicsObject {
 	
 	private double radius;
 	private double mass;
+	
+	private Point[] trail;
 	
 	private Color color;
 	
@@ -43,6 +47,7 @@ public class PhysicsObject {
 		this.acelY = 0;
 		this.velX = 0;
 		this.velY = 0;
+		this.trail = new Point[TRAIL_SIZE];
 		
 		objects.add(this);
 	}
@@ -57,6 +62,7 @@ public class PhysicsObject {
 		this.acelY = 0;
 		this.velX = velX;
 		this.velY = velY;
+		this.trail = new Point[TRAIL_SIZE];
 		
 		objects.add(this);
 	}
@@ -71,8 +77,13 @@ public class PhysicsObject {
 		this.acelY = acelY;
 		this.velX = velX;
 		this.velY = velY;
+		this.trail = new Point[TRAIL_SIZE];
 		
 		objects.add(this);
+	}
+	
+	public Point[] getTrail() {
+		return this.trail;
 	}
 	
 	public double getDistance(PhysicsObject other) {
@@ -92,6 +103,29 @@ public class PhysicsObject {
 		return renders;
 	}
 	
+	public static Object[] shiftArray(Object[] arr) {
+		for (int i = arr.length - 2; i >= 0; i++) {
+			arr[i] = arr[i+1];
+		}
+		
+		return arr;
+	}
+	
+	public static Render[] getRenderedTrails(Color backgroundColor) {
+		Render[] renders = new Render[TRAIL_SIZE];
+		
+		for (int i = 0; i < objects.size(); i++) {
+			PhysicsObject object = objects.get(i);
+			Point[] trails = object.getTrail();
+			
+			for (int k = 0; k < trails.length; k++) {
+				
+			}
+		}
+		
+		return renders;
+	}
+	
 	public Render castToRender() {
 		return new Render(
 				(int) (x / 1000000d), 
@@ -101,6 +135,8 @@ public class PhysicsObject {
 				this.color
 			);
 	}
+	
+	
 	
 	// Simulation Methods
 	

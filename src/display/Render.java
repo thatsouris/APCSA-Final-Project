@@ -31,6 +31,15 @@ public class Render {
 		return color;
 	}
 	
+	public Render(int x, int y, int sizeX, int sizeY) {
+		this.x = x;
+		this.y = y;
+		this.sizeX = sizeX;
+		this.sizeY = sizeY;
+		
+		this.color = new Color(255, 255, 255);
+	}
+	
 	public Render(int x, int y, int sizeX, int sizeY, Color color) {
 		this.x = x;
 		this.y = y;
