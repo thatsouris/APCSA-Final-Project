@@ -16,6 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import main.PhysicsObject;
+
 public class Display extends JPanel {
 	private static final long serialVersionUID = -2527740006111385328L;
 	private static Color BG_COLOR = new Color(25, 25, 25);
@@ -26,7 +28,7 @@ public class Display extends JPanel {
 	
 	private static int GRID_LINES_PER_DISTANCE = 25;
 	
-	public int FPS = 60;
+	public int FPS = 144;
 	
 	private int cameraX;
 	private int cameraY;
@@ -92,18 +94,25 @@ public class Display extends JPanel {
 		
 		drawGrid(graphics);
 		
+		// Drawing trails first (so that objects overlap)
 		// Drawing components
-				if (renders != null) {
-					for (Render render : renders) {
-						render.draw(graphics,
-								centerX,
-								centerY,
-								cameraX, 
-								cameraY, 
-								zoom
-						);
-					}
-				}
+		if (renders != null) {
+			for (Render trail : PhysicsObject.getRenderedTrails(BG_COLOR)) {
+				if (trail == null) { continue; };
+				
+				trail.draw(graphics, centerX, centerY, cameraX, cameraY, zoom);
+			}
+			
+			for (Render render : renders) {
+				render.draw(graphics,
+					centerX,
+					centerY,
+					cameraX, 
+					cameraY, 
+					zoom
+				);
+			}
+		}
 		
 		graphics.setColor(BORDER_COLOR);
 		graphics.drawRect(1, 1, super.getWidth() - 2, super.getHeight() - 2);
