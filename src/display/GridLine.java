@@ -18,9 +18,9 @@ public class GridLine extends Render{
 		cameraY /= 100;
 		
 		g.drawLine(
-				(int) ((super.getX() + cameraX) * zoom), 
-				(int) ((super.getY() + cameraY) * zoom), 
-				(int) ((super.getSizeX() + cameraX) * zoom), 
-				(int) ((super.getSizeY() + cameraY) * zoom));
+				(int) ((super.getX() + cameraX) * zoom) + centerX, 
+				(int) ((super.getY() + cameraY) * zoom) + centerY, 
+				(int) ((super.getSizeX() + cameraX) * zoom) + centerX, 
+				(int) ((super.getSizeY() + cameraY) * zoom) + centerY);
 	}
 }

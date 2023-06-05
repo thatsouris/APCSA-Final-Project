@@ -90,9 +90,12 @@ public class PhysicsObject {
 	}
 	
 	public double getDistance(PhysicsObject other) {
+		double s1 = Math.abs(this.x - other.getX());
+		double s2 = Math.abs(this.y - other.getY());
+		
 		return Math.sqrt(
-				Math.pow(Math.abs(this.x - other.getX()), 2) +
-				Math.pow(Math.abs(this.y - other.getY()), 2)
+				(s1*s1) +
+				(s2*s2)
 		);
 	}
 	
@@ -166,12 +169,16 @@ public class PhysicsObject {
 		for (PhysicsObject other : objects) {
 			if (other.equals(this)) continue;
 			double distance = getDistance(other);
+			double dx = x - other.getX();
+			double dy = y - other.getY();
 			
-			double ratioX = (double) -x / distance;
-			double ratioY = (double) -y / distance;
-
-			double force = (long) ((6.67d * this.mass * other.getMass()) / (Math.pow(distance, 2) * Math.pow(10, 11)));
-			resultant.add(new Force(ratioX * force, ratioY * force));
+			double angle = Math.atan2(other.getY()-y, other.getX()-x);
+			
+			double ratioX = (double) -dx / distance;
+			double ratioY = (double) -dy / distance;
+			double force = (long) (((Math.pow(10, -11) * 6.67) * this.mass * other.getMass()) * Math.pow(distance, -2));
+ 
+			resultant.add(new Force(force * ratioX, force * ratioY));
 		}
 		
 		return resultant;
@@ -188,9 +195,9 @@ public class PhysicsObject {
 		
 		this.acelX = nextForce.getAcelX(mass);
 		this.acelY = nextForce.getAcelY(mass);
-		
-		this.velX += acelX * dt;
-		this.velY += acelY * dt;
+		System.out.println(dt);
+		this.velX += nextForce.getAcelX(mass) * dt; // acelX * dt;
+		this.velY += nextForce.getAcelY(mass) * dt; //acelY * dt;
 		
 		this.x += velX * dt;
 		this.y += velY * dt; // Possible error

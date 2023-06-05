@@ -14,7 +14,10 @@ import java.awt.event.MouseWheelEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import main.PhysicsObject;
 
@@ -23,12 +26,14 @@ public class Display extends JPanel {
 	private static Color BG_COLOR = new Color(25, 25, 25);
 	private static Color BORDER_COLOR = new Color(145, 0, 255);
 	
+	private JFrame frame;
+	
 	private static double ZOOM_MIN = 0.5;
 	private static double ZOOM_MAX = 5.0;
 	
 	private static int GRID_LINES_PER_DISTANCE = 25;
 	
-	public int FPS = 144;
+	public int FPS = 60;
 	
 	private int cameraX;
 	private int cameraY;
@@ -47,28 +52,38 @@ public class Display extends JPanel {
 		return FPS;
 	}
 	
+	public JFrame getFrame() {
+		return frame;
+	}
+	
 	public void drawGrid(Graphics2D g) {
 		int centerX = super.getWidth() / 2;
 		int centerY = super.getHeight() / 2;
 		
-		int amountX = (int) (super.getWidth() * zoom) / GRID_LINES_PER_DISTANCE;
-		int amountY = (int) (super.getHeight() * zoom) / GRID_LINES_PER_DISTANCE;
+		int approxZoom = (int) Math.max(Math.min(zoom, ZOOM_MAX), 1);
 		
-		for (int x = -amountX / 2 - 3; x < amountX / 2 + 3; x++) {
+		int amountX = (int) (super.getWidth() * approxZoom) / GRID_LINES_PER_DISTANCE;
+		int amountY = (int) (super.getHeight() * approxZoom) / GRID_LINES_PER_DISTANCE;
+		
+		int offsetX = cameraX / GRID_LINES_PER_DISTANCE * approxZoom;
+		int offsetY = cameraY / GRID_LINES_PER_DISTANCE * approxZoom;
+		System.out.println(cameraY);
+		for (int x = -amountX - 3 - offsetX; x < amountX + 3 - offsetX; x++) {
 			GridLine line = new GridLine(
 					cameraX + (x * GRID_LINES_PER_DISTANCE),
-					cameraY,
+					-super.getHeight() * approxZoom,
 					cameraX + (x * GRID_LINES_PER_DISTANCE),
-					super.getHeight() + cameraY
+					super.getHeight() * approxZoom
 				);
+	
 			line.draw(g, centerX, centerY, cameraX, cameraY, zoom);
 		}
 		
-		for (int y = -3; y < amountY + 3; y++) {
+		for (int y = -amountY - 3 - offsetY; y < amountY + 3 - offsetY; y++) {
 			GridLine line = new GridLine(
-					cameraX,
+					-super.getWidth() * approxZoom,
 					cameraY + (y * GRID_LINES_PER_DISTANCE),
-					cameraX + super.getWidth(),
+					super.getWidth() * approxZoom,
 					cameraY + (y * GRID_LINES_PER_DISTANCE)
 				);
 			line.draw(g, centerX, centerY, cameraX, cameraY, zoom);
@@ -123,7 +138,7 @@ public class Display extends JPanel {
 		graphics.drawString("FPS : " + this.getFPS() + 
 				" | CAMERAX : " + this.cameraX +
 				" | CAMERAY : " + this.cameraY +
-				" | ZOOM : x" + this.zoom, 5, 15);
+				" | ZOOM : x" + this.zoom, 10, this.getHeight() - 10);
 	}
 	
 	public void updateRenders(Render[] renders) {
@@ -137,9 +152,9 @@ public class Display extends JPanel {
 		cameraX = 0;
 		cameraY = 0;
 		
-		JFrame frame = new JFrame(title);
+		frame = new JFrame(title);
 		frame.setSize(sizeX, sizeY);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(this);
         frame.setLocationByPlatform(true);
         frame.setVisible(true);
@@ -158,6 +173,7 @@ public class Display extends JPanel {
         
         Render[] r = new Render[0];
         this.updateRenders(r);
+        
 	}
 	
 	protected class Mouse extends MouseAdapter {
@@ -187,7 +203,7 @@ public class Display extends JPanel {
         
         @Override
         public void mouseWheelMoved(MouseWheelEvent e) {
-        	zoom += (double) e.getWheelRotation() * -0.1d;
+        	zoom += (double) e.getWheelRotation() * -0.5d;
         	zoom = Math.round(zoom * 10) / 10d;
         	
         	zoom = Math.max(Math.min(zoom, ZOOM_MAX), ZOOM_MIN);

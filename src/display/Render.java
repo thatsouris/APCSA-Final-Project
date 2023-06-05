@@ -51,18 +51,17 @@ public class Render {
 	
 	public void draw(Graphics2D g, int centerX, int centerY, int cameraX, int cameraY, double zoom) {
 		g.setColor(color);
-
 		g.fillOval(
-				(int) ((x + centerX + cameraX) * zoom) - (int) (sizeX * zoom / 2),
-				(int) ((y + centerY + cameraY) * zoom) - (int) (sizeY * zoom / 2),
+				(int) ((x + cameraX) * zoom) - (int) (sizeX * zoom / 2) + centerX,
+				(int) ((y + cameraY) * zoom) - (int) (sizeY * zoom / 2) + centerY,
 				(int) (sizeX * zoom),
 				(int) (sizeY * zoom)
 			);
 		
 		g.setColor(new Color(255, 255, 255));
 		g.drawOval(
-				(int) ((x + centerX + cameraX) * zoom) - (int) (sizeX * zoom / 2),
-				(int) ((y + centerY + cameraY) * zoom) - (int) (sizeY * zoom / 2),
+				(int) ((x + cameraX) * zoom) - (int) (sizeX * zoom / 2) + centerX,
+				(int) ((y + cameraY) * zoom) - (int) (sizeY * zoom / 2) + centerY,
 				(int) (sizeX * zoom),
 				(int) (sizeY * zoom)
 			);

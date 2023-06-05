@@ -29,9 +29,9 @@ public class Trail extends Render {
 		g.setColor(transparentColor);
 		
 		g.drawLine(
-				(int) ((super.getX() + cameraX + centerX) * zoom), 
-				(int) ((super.getY() + cameraY + centerY) * zoom), 
-				(int) ((super.getSizeX() + cameraX + centerX) * zoom), 
-				(int) ((super.getSizeY() + cameraY + centerY) * zoom));
+				(int) (((super.getX() + cameraX) * zoom) + centerX), 
+				(int) (((super.getY() + cameraY) * zoom) + centerY), 
+				(int) ((super.getSizeX() + cameraX) * zoom) + centerX, 
+				(int) ((super.getSizeY() + cameraY) * zoom) + centerY);
 	}
 }

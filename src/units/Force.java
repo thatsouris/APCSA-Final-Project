@@ -9,7 +9,7 @@ public class Force {
 		this.forceY = (long) forceY;
 	}
 	
-	public Force(long force, double angle) {
+	public Force(double force, long angle) {
 		this.forceX = (long) (force * Math.cos(angle));
 		this.forceY = (long) (force * Math.sin(angle));
 	}
