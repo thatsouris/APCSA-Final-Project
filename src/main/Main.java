@@ -28,14 +28,19 @@ public class Main {
 	
 	public static void init() {
 		Display display = new Display("APCSA | PHYSICS PROJECT", 600, 600);
-		
-		//new PhysicsObject(695000, 1.989 * Math.pow(10, 30), 0, 0);
-		//new PhysicsObject(6371, 5.972 * Math.pow(10, 24), 0, 150000000, 46d, 0);
 
-		new PhysicsObject(new Color(255, 255, 0), 3000000, 1.989 * Math.pow(10, 30), 0, 0);
-		new PhysicsObject(new Color(0, 200, 20),1500000, 1.989 * Math.pow(10, 19), 0, 50000000, 500, 0);
-		//new PhysicsObject(new Color(0, 255, 255),1500000, 16 * Math.pow(10, 21), 0, 120000000, 200, 0);
-		//new PhysicsObject(new Color(255, 200, 20),1000000, 1.989 * Math.pow(10, 10), 0, 55000000, 500, 0);
+		//new PhysicsObject(new Color(255, 255, 0), 695508000, 1.989 * Math.pow(10, 30), 0, 0);
+		
+		
+		//new PhysicsObject(new Color(50, 255, 50), 50000, 0.3 * Math.pow(10, 15), 0, 0.1*Math.pow(10, 10), 5000, 0);
+		
+		//new PhysicsObject(new Color(50, 255, 50), 50000, 0.3 * Math.pow(10, 15), 0, 0.15*Math.pow(10, 10), -4000, 0);
+		
+		//new PhysicsObject(new Color(50, 255, 50), 50000, 0.3 * Math.pow(10, 15), 0, 0.18*Math.pow(10, 10), 5000, 0);
+		//new PhysicsObject(new Color(50, 255, 50), 50000, 0.3 * Math.pow(10, 15), 0.195*Math.pow(10, 10), 0, 0, -5000);
+		//new PhysicsObject(new Color(50, 255, 50), 50000, 0.3 * Math.pow(10, 15), -0.19*Math.pow(10, 10), 0, 0, -5000);
+		//new PhysicsObject(new Color(50, 255, 50), 50000, 0.3 * Math.pow(10, 15), 0, 0.17*Math.pow(10, 10), -3400, 0);
+		
 		ActionListener render = new ActionListener() {
 			long lastTime = new Date().getTime();
 			double dt = 0d;

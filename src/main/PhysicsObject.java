@@ -13,7 +13,7 @@ public class PhysicsObject {
 	public static ArrayList<PhysicsObject> objects = new ArrayList<PhysicsObject>();
 	public static final long GRAVITY_CONSTANT = (long) ((long) 6.67 * (long) Math.pow(10, -11));
 	private static final int TRAIL_SIZE = 250;
-	public static double SCALE = 1000000d;
+	public static double SCALE = 10000000d;
 	
 	private double x;
 	private double y;
@@ -176,7 +176,7 @@ public class PhysicsObject {
 			
 			double ratioX = (double) -dx / distance;
 			double ratioY = (double) -dy / distance;
-			double force = (long) (((Math.pow(10, -11) * 6.67) * this.mass * other.getMass()) * Math.pow(distance, -2));
+			double force = (long) ((this.mass * other.getMass()) * Math.pow(distance, -2)) *(Math.pow(10, -7) * 6.67d);
  
 			resultant.add(new Force(force * ratioX, force * ratioY));
 		}
@@ -195,9 +195,10 @@ public class PhysicsObject {
 		
 		this.acelX = nextForce.getAcelX(mass);
 		this.acelY = nextForce.getAcelY(mass);
-		System.out.println(dt);
+		
 		this.velX += nextForce.getAcelX(mass) * dt; // acelX * dt;
 		this.velY += nextForce.getAcelY(mass) * dt; //acelY * dt;
+		System.out.println(nextForce.getAcelY(mass) * dt);
 		
 		this.x += velX * dt;
 		this.y += velY * dt; // Possible error
