@@ -45,6 +45,7 @@ public class Display extends JPanel {
 	
 	private Render[] renders;
 	
+	// Getting/setting FPS
 	public void setFPS(int fps) {
 		FPS = fps;
 	}
@@ -90,6 +91,8 @@ public class Display extends JPanel {
 		}
 	}
 	
+	// Main paint method
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -129,6 +132,7 @@ public class Display extends JPanel {
 			}
 		}
 		
+		// Border drawing
 		graphics.setColor(BORDER_COLOR);
 		graphics.drawRect(1, 1, super.getWidth() - 2, super.getHeight() - 2);
 		graphics.setFont(new Font("Courier New", Font.BOLD, 15));
@@ -141,6 +145,7 @@ public class Display extends JPanel {
 				" | ZOOM : x" + this.zoom, 10, this.getHeight() - 10);
 	}
 	
+	// This updates the renders that needs to be drawn
 	public void updateRenders(Render[] renders) {
 		this.renders = renders;
 		repaint();

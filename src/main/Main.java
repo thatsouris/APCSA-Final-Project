@@ -27,8 +27,10 @@ public class Main {
 	}
 	
 	public static void init() {
+		// Creating display
 		Display display = new Display("APCSA | PHYSICS PROJECT", 600, 600);
 
+		// Object creation
 		//new PhysicsObject(new Color(255, 255, 0), 695508000, 1.989 * Math.pow(10, 30), 0, 0);
 		
 		
@@ -41,6 +43,7 @@ public class Main {
 		//new PhysicsObject(new Color(50, 255, 50), 50000, 0.3 * Math.pow(10, 15), -0.19*Math.pow(10, 10), 0, 0, -5000);
 		//new PhysicsObject(new Color(50, 255, 50), 50000, 0.3 * Math.pow(10, 15), 0, 0.17*Math.pow(10, 10), -3400, 0);
 		
+		// Timer creation
 		ActionListener render = new ActionListener() {
 			long lastTime = new Date().getTime();
 			double dt = 0d;
