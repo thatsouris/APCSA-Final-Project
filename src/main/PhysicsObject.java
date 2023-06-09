@@ -85,10 +85,12 @@ public class PhysicsObject {
 		objects.add(this);
 	}
 	
+	// Returns the trail array
 	public Point2D.Double[] getTrail() {
 		return this.trail;
 	}
 	
+	// Getting the distance from this object to another object
 	public double getDistance(PhysicsObject other) {
 		double s1 = Math.abs(this.x - other.getX());
 		double s2 = Math.abs(this.y - other.getY());
@@ -99,6 +101,7 @@ public class PhysicsObject {
 		);
 	}
 	
+	// Get all of the physics objects renders
 	public static Render[] getRenders() {
 		Render[] renders = new Render[objects.size()];
 		
@@ -109,6 +112,7 @@ public class PhysicsObject {
 		return renders;
 	}
 	
+	// Shifts all of the trails one index to the right.
 	public static Point2D.Double[] shiftPoints(Point2D.Double[] arr) {
 		for (int i = arr.length - 2; i >= 0; i--) {
 			arr[i+1] = arr[i];
@@ -117,6 +121,7 @@ public class PhysicsObject {
 		return arr;
 	}
 	
+	// Converts the trail array into a render array to be drawn.
 	public static Render[] getRenderedTrails(Color backgroundColor) {
 		Render[] renders = new Render[TRAIL_SIZE * objects.size()];
 		
@@ -148,6 +153,7 @@ public class PhysicsObject {
 		return renders;
 	}
 	
+	// Creates a render object with the current physics object
 	public Render castToRender() {
 		return new Render(
 				(int) (x / SCALE), 
@@ -184,12 +190,14 @@ public class PhysicsObject {
 		return resultant;
 	}
 	
+	// Loops through all objects and simulates them
 	public static void simulateObjects(double dt) {
 		for (PhysicsObject object : objects) {
 			object.simulateStep(dt);
 		}
 	}
 	
+	// Simulating one step with delta time
 	public void simulateStep(double dt) {
 		Force nextForce = calculateForce();
 		
